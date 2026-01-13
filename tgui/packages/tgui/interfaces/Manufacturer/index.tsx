@@ -78,6 +78,7 @@ export const Manufacturer = () => {
   const [swappingMaterialRef, setSwappingMaterialRef] = useState<string | null>(
     null,
   );
+  const [bulkVendModalByondRef, setBulkVendModalByondRef] = useState<string>();
   const staticActions = useMemo(
     () => ({
       handleBlueprintRemove: (byondRef: string) =>
@@ -91,6 +92,8 @@ export const Manufacturer = () => {
         }),
       handleProductVend: (byondRef: string) =>
         act('request_product', { blueprint_ref: byondRef }),
+      handleBulkProductVend: (byondRef: string, count: number) =>
+        act('bulk_request_product', { blueprint_ref: byondRef, count }),
       handleQueueClear: () => act('clear'),
       handleQueueRemove: (index: number) => act('remove', { index: index + 1 }),
       handleQueueTogglePause: (mode: string) =>
@@ -227,6 +230,7 @@ export const Manufacturer = () => {
                               staticActions.handleBlueprintRemove
                             }
                             onVendProduct={staticActions.handleProductVend}
+                            onBulkVendProduct={setBulkVendModalByondRef}
                             blueprintData={blueprint}
                             manufacturerSpeed={speed}
                             blueprintProducibilityData={
@@ -415,3 +419,7 @@ export const Manufacturer = () => {
     </Window>
   );
 };
+
+type BulkVendModalProps = {};
+
+const BulkVendModal = () => {};

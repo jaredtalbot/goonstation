@@ -88,6 +88,7 @@ export const NumberInputModal = () => {
 };
 
 /** Gets the user input and invalidates if there's a constraint. */
+// todo: make this crap reusable
 const InputArea = (props) => {
   const { act, data } = useBackend<NumberInputData>();
   const { min_value, max_value, init_value, round_input } = data;

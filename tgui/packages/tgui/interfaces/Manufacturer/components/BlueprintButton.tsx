@@ -6,7 +6,7 @@
  */
 
 import { BooleanLike } from 'common/react';
-import { memo, useCallback } from 'react';
+import { memo, MouseEventHandler, useCallback } from 'react';
 import { Button, LabeledList, Section } from 'tgui-core/components';
 import { round } from 'tgui-core/math';
 import { shallowDiffers } from 'tgui-core/react';
@@ -22,6 +22,7 @@ const getBlueprintTime = (time, manufacturerSpeed) => {
 export type BlueprintButtonProps = {
   onBlueprintRemove: (byondRef: string) => void;
   onVendProduct: (byondRef: string) => void;
+  onBulkVendProduct: (byondRef: string) => void;
   blueprintData: ManufacturableData;
   blueprintProducibilityData: Record<string, BooleanLike>;
   manufacturerSpeed: number;
@@ -33,6 +34,7 @@ export const BlueprintButtonView = (props: BlueprintButtonProps) => {
   const {
     onBlueprintRemove,
     onVendProduct,
+    onBulkVendProduct,
     blueprintData,
     blueprintProducibilityData,
     manufacturerSpeed,
@@ -57,8 +59,9 @@ export const BlueprintButtonView = (props: BlueprintButtonProps) => {
     () => onBlueprintRemove(blueprintData.byondRef),
     [blueprintData.byondRef, onBlueprintRemove],
   );
-  const handleVendProduct = useCallback(
-    () => onVendProduct(blueprintData.byondRef),
+  const handleVendProduct = useCallback<MouseEventHandler>(
+    (e) =>
+      e.ctrlKey ? onVendProduct(blueprintData.byondRef) : onBulkVendProduct,
     [blueprintData.byondRef, onVendProduct],
   );
   // Don't include this flavor if we only output one item, because if so, then we know what we're making

@@ -10,6 +10,7 @@ import { BooleanLike } from 'tgui-core/react';
 
 import { ItemButtonMainButton } from './ItemButtonMainButton';
 import { ItemButtonSideButtons } from './ItemButtonSideButtons';
+import { MouseEventHandler } from 'react';
 
 export interface ItemButtonProps {
   image?: string | null;
@@ -20,7 +21,7 @@ export interface ItemButtonProps {
   sideButton1?: SideButtonProps;
   sideButton2?: SideButtonProps;
 
-  onMainButtonClick: () => void;
+  onMainButtonClick: MouseEventHandler;
 }
 
 export interface SideButtonProps {
@@ -29,7 +30,7 @@ export interface SideButtonProps {
   color?: string;
   disabled: BooleanLike;
 
-  onClick?: () => void;
+  onClick?: MouseEventHandler;
 }
 
 export const ItemButton = (props: ItemButtonProps) => {
